@@ -1,0 +1,7 @@
+# Servicio de control en Cloudflare: preparación
+
+Estado: **prototipo; no publicar con cuentas reales todavía**. La base D1 `streamvoice-control` y su esquema existen. El Worker `control` contiene únicamente el ejemplo inicial y tiene una vinculación `DB` a esa base en producción. La vista previa no comparte la base de producción.
+
+El código `worker.mjs` implementa cuentas, sesiones y permisos sobre D1. Las credenciales de proveedores permanecen locales y no se envían a este servicio. `node scripts/build-cloud-worker.mjs` produce `.build-cache/cloud-worker.mjs`, con los catálogos incorporados. `node --test test/cloud-control.test.mjs` prueba el servicio con SQLite local, no con el runtime de Cloudflare.
+
+Antes de distribuir: establecer una credencial secreta de inicialización mediante el procedimiento seguro de Cloudflare, publicar el código y probar la inicialización con datos de prueba, la limitación de intentos, la revocación, las sesiones y los límites reales de CPU del plan gratuito. Retirar o rotar la credencial de inicialización tras crear el administrador. No incluirla en los paquetes de usuario ni en archivos compartidos. Crear o migrar las cuentas con un procedimiento seguro; no se han importado las cuentas locales. El código usa PBKDF2 con 600.000 iteraciones: comprobar que el plan gratuito lo admite sin reducir su coste de seguridad. Configurar la URL en `STREAMVOICE_CLOUD_CONTROL_URL` al construir y probar las apps empaquetadas en ambos sistemas. Las actualizaciones siguen sin canal ni instalador configurado.

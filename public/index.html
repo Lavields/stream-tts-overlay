@@ -1,0 +1,1335 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#0b1020" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/assets/branding/favicon-32.png"
+    />
+    <link rel="apple-touch-icon" href="/assets/branding/apple-touch-icon.png" />
+    <title>StreamVoice — Tu chat tiene voz</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body data-current-view="studio">
+    <aside class="sidebar">
+      <a class="brand" href="/" aria-label="StreamVoice · Inicio">
+        <img
+          class="brand-logo"
+          src="/assets/branding/logo.png"
+          width="48"
+          height="48"
+          alt="Logo de StreamVoice"
+        />
+        <span class="brand-name"
+          >StreamVoice <small>APP · ESTUDIO DE VOZ</small></span
+        >
+      </a>
+      <div class="workspace">
+        <span class="workspace-icon">✦</span>
+        <div>Mi estudio<small>Espacio personal</small></div>
+      </div>
+      <p class="nav-label">MI ESTUDIO</p>
+      <nav>
+        <button
+          class="nav-item active"
+          data-view="studio"
+          title="Estudio"
+          aria-current="page"
+        >
+          <span aria-hidden="true"
+            ><svg class="nav-icon" viewBox="0 0 24 24">
+              <rect
+                class="active-fill"
+                x="3"
+                y="3"
+                width="18"
+                height="18"
+                rx="3"
+              />
+              <path d="M3 9h18M9 9v12" /></svg
+          ></span>
+          Estudio
+          <span class="nav-badge" id="nav-connection-state"
+            >Sin conexión</span
+          ></button
+        ><button
+          class="nav-item"
+          data-view="voices"
+          title="Biblioteca de voces y avatares"
+        >
+          <span aria-hidden="true"
+            ><svg class="nav-icon" viewBox="0 0 24 24">
+              <path
+                d="M4 8c3-5 6 5 9 0s6 5 7 0M4 16c3-5 6 5 9 0s6 5 7 0"
+              /></svg
+          ></span>
+          Biblioteca</button
+        ><button class="nav-item" data-view="users" title="Usuarios">
+          <span aria-hidden="true"
+            ><svg class="nav-icon" viewBox="0 0 24 24">
+              <circle class="active-fill" cx="9" cy="8" r="3" />
+              <path
+                d="M3 21v-2a6 6 0 0 1 12 0v2M16 5a3 3 0 0 1 0 6M21 21v-2a6 6 0 0 0-4-5.65"
+              /></svg
+          ></span>
+          Usuarios <span id="user-count" class="count">0</span></button
+        ><button class="nav-item" data-view="connections" title="Conexiones">
+          <span aria-hidden="true"
+            ><svg class="nav-icon" viewBox="0 0 24 24">
+              <path
+                d="m10 13 4-4M8 15l-1 1a4 4 0 0 1-6-6l4-4a4 4 0 0 1 6 0M16 9l1-1a4 4 0 0 1 6 6l-4 4a4 4 0 0 1-6 0"
+              /></svg
+          ></span>
+          Conexiones
+        </button>
+        <button class="nav-item" id="nav-sounds" title="Sonidos del chat">
+          <span aria-hidden="true"
+            ><svg class="nav-icon" viewBox="0 0 24 24">
+              <path d="M9 18V5l12-2v13M9 9l12-2" />
+              <ellipse cx="6" cy="18" rx="3" ry="3" />
+              <ellipse cx="18" cy="16" rx="3" ry="3" /></svg
+          ></span>
+          Sonidos
+        </button>
+        <button id="admin-open" class="nav-item" title="Administrar cuentas" hidden>
+          <span aria-hidden="true">⚙</span> Administración
+        </button>
+        <button id="updates-check" class="nav-item" title="Buscar actualizaciones" hidden>
+          <span aria-hidden="true">↻</span> Buscar actualizaciones
+        </button>
+        <button id="settings-open" class="nav-item" title="Ajustes">
+          <span aria-hidden="true"
+            ><svg class="nav-icon" viewBox="0 0 24 24">
+              <path
+                d="m9 3-1 3-3 1-2 3 2 2-1 3 2 3 3-1 3 2 3-2 3 1 2-3-1-3 2-2-2-3-3-1-1-3z"
+              />
+              <circle cx="12" cy="12" r="3" /></svg
+          ></span>
+          Ajustes
+        </button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="obs-card">
+          <span>↗</span><strong>Llévalo a tu stream</strong>
+          <p>Tu elenco, en vivo.<br />Listo para OBS.</p>
+          <button id="sidebar-overlay" class="button secondary">
+            Configurar overlay <span>↗</span>
+          </button>
+        </div>
+
+        <div class="profile">
+          <span class="profile-icon">S</span>
+          <div>Streamer<small>Estudio local</small></div>
+          <span class="local-dot"></span>
+        </div>
+      </div>
+    </aside>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <span class="breadcrumb">Mi estudio</span><span class="slash">/</span
+          ><span id="page-name">Estudio</span>
+        </div>
+        <div class="header-right">
+          <span id="account-name" class="account-name"></span
+          ><button
+            id="logout"
+            class="button small secondary"
+            aria-label="Cerrar sesión"
+          >
+            <span class="desktop-label">Cerrar sesión</span
+            ><span class="mobile-label">Salir</span>
+          </button>
+          <span class="local-label"><i></i> Guardado en este navegador</span
+          ><button
+            class="button small secondary"
+            id="overlay-open"
+            aria-label="Overlay para OBS"
+          >
+            <span class="desktop-label">Overlay para OBS</span
+            ><span class="mobile-label">OBS</span>
+          </button>
+        </div>
+      </header>
+      <section class="live-controls" aria-label="Controles de lectura">
+        <div class="live-state">
+          <span id="live-status" role="status">Listo para leer</span>
+        </div>
+        <div class="live-actions">
+          <button
+            id="tts-toggle"
+            type="button"
+            aria-pressed="true"
+            class="button secondary"
+          >
+            ⏻ Apagar TTS</button
+          ><button
+            id="pause"
+            class="button secondary"
+            aria-label="Pausar la cola"
+            aria-pressed="false"
+            title="La lectura actual continúa. Usa Saltar para detenerla."
+          >
+            Ⅱ Pausa cola</button
+          ><button
+            id="skip"
+            aria-label="Saltar mensaje"
+            class="button secondary"
+            title="Saltar la lectura actual"
+          >
+            Saltar</button
+          ><button id="jump-queue" type="button" class="button secondary">
+            Cola <span id="live-queue-count">0</span>
+          </button>
+        </div>
+        <button
+          id="twitch-audience-open"
+          type="button"
+          class="button secondary audience-trigger"
+          aria-haspopup="true"
+          aria-controls="twitch-audience-panel"
+          aria-expanded="false"
+          title="Elegir a quién leer en Twitch"
+        >
+          <img
+            src="/assets/platforms/twitch.svg"
+            width="18"
+            height="18"
+            alt="Twitch"
+          /><span id="twitch-audience-label">Todos</span>
+        </button>
+        <div class="live-volume">
+          <label for="volume"
+            >Volumen <output id="volume-out">80%</output></label
+          ><input
+            type="range"
+            id="volume"
+            min="0"
+            max="100"
+            value="80"
+            aria-label="Volumen"
+          />
+        </div>
+      </section>
+      <main>
+        <section class="page-heading">
+          <div>
+            <h1 id="page-title">Estudio en directo</h1>
+            <p id="page-subtitle">
+              Controla la lectura y los mensajes de tu comunidad.
+            </p>
+          </div>
+          <button id="demo" class="button primary">
+            <span>▷</span> Probar una lectura
+          </button>
+        </section>
+        <section class="connection-strip">
+          <div class="strip-title">
+            <span class="signal">⌁</span>
+            <div>
+              <strong>Tus canales</strong
+              ><small id="connection-summary"
+                >Conecta tu primera plataforma</small
+              >
+            </div>
+          </div>
+          <div class="channel-pills" id="channel-pills">
+            <span class="platform-dot twitch" title="twitch"
+              ><img
+                src="/assets/platforms/twitch.svg"
+                alt="twitch"
+                width="18"
+                height="18"
+            /></span>
+            <span class="platform-dot tiktok" title="tiktok"
+              ><img
+                src="/assets/platforms/tiktok.svg"
+                alt="tiktok"
+                width="18"
+                height="18"
+            /></span>
+            <span class="platform-dot kick" title="kick"
+              ><img
+                src="/assets/platforms/kick.svg"
+                alt="kick"
+                width="18"
+                height="18"
+            /></span>
+            <span class="platform-dot youtube" title="youtube"
+              ><img
+                src="/assets/platforms/youtube.svg"
+                alt="youtube"
+                width="18"
+                height="18"
+            /></span>
+            <span class="platform-dot starvios" title="starvios"
+              ><img
+                src="/assets/platforms/starvios.png"
+                alt="starvios"
+                width="18"
+                height="18"
+            /></span>
+            <span class="muted">5 plataformas · una sola cola</span>
+          </div>
+          <button class="button small secondary" id="connect-open">
+            ＋ Conectar canal
+          </button>
+        </section>
+        <div id="studio-view" class="view">
+          <section id="theme-dashboard" class="theme-dashboard" aria-label="Resumen del estudio">
+            <div class="dashboard-welcome"><div><span class="dashboard-eyebrow">TU ESTUDIO PERSONAL</span><h2 id="dashboard-greeting"></h2><p>Tu voz, tu avatar y tus canales en un solo lugar.</p><button type="button" class="button primary" id="dashboard-demo">▷ Probar una lectura</button></div><img id="dashboard-hero-avatar" alt="" loading="lazy" /></div>
+            <div class="dashboard-voice dashboard-tile"><div class="dashboard-tile-heading"><h3>Voz activa</h3><button type="button" class="text-button" id="dashboard-voice-change">Cambiar</button></div><div class="dashboard-voice-body"><div class="voice-orb" aria-hidden="true"><svg viewBox="0 0 64 64"><path d="M10 28v8M17 23v18M24 16v32M32 9v46M40 19v26M47 24v16M54 28v8"/></svg></div><div><strong id="dashboard-voice-name">Voz predeterminada</strong><p>Voz seleccionada para tu comunidad</p></div></div></div>
+            <div class="dashboard-avatar dashboard-tile"><div class="dashboard-tile-heading"><h3>Avatar activo</h3><button type="button" class="text-button" id="dashboard-avatar-change">Cambiar</button></div><div class="dashboard-avatar-body"><img id="dashboard-avatar-img" alt="" loading="lazy" /><div><strong id="dashboard-avatar-name"></strong><p>Personaje para tu stream</p></div></div></div>
+            <section class="dashboard-platforms dashboard-tile"><div class="dashboard-tile-heading"><div><h3>Plataformas</h3><p>Conecta y administra tus canales.</p></div><button type="button" class="text-button" id="dashboard-manage-platforms">Gestionar</button></div><div id="dashboard-platform-list" class="dashboard-platform-list"></div></section>
+            <section class="dashboard-activity dashboard-tile"><div class="dashboard-tile-heading"><div><h3>Actividad reciente</h3><p>Actividad de esta sesión</p></div></div><ul id="dashboard-activity-list"><li>Aún no hay actividad en esta sesión.</li></ul></section>
+          </section>
+          <section
+            class="studio-pickers"
+            aria-label="Voz y avatar predeterminados"
+          >
+            <div class="voice-picker">
+              <label class="field-label" for="default-voice"
+                >Voz predeterminada <span>✦</span></label
+              ><select id="default-voice">
+                <option value="system:default">
+                  Voz del sistema · Español
+                </option>
+              </select>
+              <p class="field-hint" id="voice-hint">
+                Voces instaladas en tu navegador, sin API key.
+              </p>
+            </div>
+            <div class="current-avatar">
+              <img id="current-avatar-thumb" width="64" height="64" alt="" />
+              <div>
+                <span class="field-label">Avatar predeterminado</span
+                ><strong id="current-avatar-name"></strong>
+              </div>
+              <button type="button" class="button secondary" id="change-avatar">
+                Cambiar avatar
+              </button>
+            </div>
+          </section>
+          <div class="studio-workbench">
+            <section class="card preview-card">
+              <div class="card-heading">
+                <div>
+                  <span class="section-icon">◉</span>
+                  <h2>Escenario en vivo</h2>
+                </div>
+                <span id="stage-status" class="status-pill"
+                  ><i></i> En espera</span
+                >
+              </div>
+              <div class="stage" id="stage">
+                <div class="stage-grid"></div>
+                <span class="stage-star one">✧</span
+                ><span class="stage-star two">✦</span
+                ><span class="stage-circle"></span>
+                <div id="main-avatar" class="main-avatar"></div>
+                <div id="stage-bubble" class="manga-bubble" hidden>
+                  <strong id="stage-bubble-user"></strong>
+                  <p id="stage-bubble-text"></p>
+                </div>
+                <div class="stage-tag">
+                  <i></i> <span id="avatar-name">Calcetín Arcoíris</span
+                  ><span class="tag-separator">/</span
+                  ><span id="stage-engine">Voz del sistema</span>
+                </div>
+                <button
+                  id="stage-fullscreen"
+                  title="Ampliar escenario"
+                  aria-label="Ampliar escenario"
+                >
+                  ⛶
+                </button>
+                <div id="stage-idle" class="stage-idle">
+                  <strong>Listo para tu próxima lectura</strong>
+                  <p id="stage-idle-help">Conecta un canal o prueba un mensaje.</p>
+                  <button type="button" class="button small secondary" id="stage-connect">Conectar canal</button>
+                </div>
+              </div>
+              <p id="speech-error" class="speech-error" role="alert"></p>
+              <div class="now-playing">
+                <div class="equalizer" id="equalizer">
+                  <i></i><i></i><i></i><i></i>
+                </div>
+                <div class="now-copy">
+                  <strong id="now-user">El micrófono es de tu chat</strong>
+                  <p id="now-text">
+                    Conecta un canal o prueba una lectura para empezar.
+                  </p>
+                </div>
+              </div>
+              <div class="preview-footer">
+                <span
+                  ><i class="purple-dot"></i>
+                  <span id="lip-mode">Animación al hablar</span></span
+                ><span>AVATAR 2D</span>
+              </div>
+            </section>
+            <section class="card queue-card" id="queue-panel" tabindex="-1">
+              <div class="card-heading">
+                <div>
+                  <span class="section-icon">≡</span>
+                  <h2>
+                    Cola de mensajes
+                    <span id="queue-count" class="count">0</span>
+                  </h2>
+                </div>
+                <button id="clear-queue" class="text-button">Vaciar</button>
+              </div>
+              <div id="queue-list" class="queue-list">
+                <div class="empty-state">
+                  <span>☵</span><strong>Tu próxima voz está por llegar</strong>
+                  <p>Los mensajes de tus canales aparecerán aquí.</p>
+                </div>
+              </div>
+              <form id="test-form" class="test-form">
+                <input
+                  id="test-user"
+                  aria-label="Usuario de prueba"
+                  placeholder="Usuario"
+                  value="invitado"
+                  maxlength="80"
+                /><input
+                  id="test-message"
+                  aria-label="Mensaje de prueba"
+                  placeholder="Escribe un mensaje de prueba…"
+                  maxlength="500"
+                  required
+                /><button
+                  class="icon-button purple"
+                  type="submit"
+                  aria-label="Enviar prueba"
+                >
+                  ➤
+                </button>
+              </form>
+            </section>
+          </div>
+          <div class="studio-secondary">
+            <details class="reading-settings card">
+              <summary>
+                Ajustes de lectura
+                <span>Velocidad, pausa entre mensajes y filtros</span>
+              </summary>
+              <div class="control-content">
+                <div class="range-header">
+                  <label for="speed">⌁ &nbsp; Velocidad de la voz</label>
+                  <output id="speed-out">100%</output>
+                </div>
+                <input
+                  type="range"
+                  id="speed"
+                  min="70"
+                  max="150"
+                  step="5"
+                  value="100"
+                  aria-label="Velocidad de la voz"
+                />
+                <div class="range-ends">
+                  <span>Más lenta</span><span>Más rápida</span>
+                </div>
+                <p class="field-hint">
+                  La boca se anima desde el audio reproducido y acompaña la
+                  velocidad elegida.
+                </p>
+
+                <button type="button" id="sound-open" class="sound-launch">
+                  <span class="sound-launch-icon">♫</span
+                  ><span
+                    ><strong>Sonidos del chat</strong
+                    ><small>150 efectos · usa códigos como {200}</small></span
+                  ><span>↗</span>
+                </button>
+
+                <div class="range-header">
+                  <label for="delay">◷ &nbsp; Tiempo entre mensajes</label
+                  ><output id="delay-out">2 s</output>
+                </div>
+                <input
+                  type="range"
+                  id="delay"
+                  min="0"
+                  max="30"
+                  step="0.5"
+                  value="2"
+                  aria-label="Segundos entre mensajes"
+                />
+                <div class="range-ends">
+                  <span>Sin pausa</span><span>30 s</span>
+                </div>
+                <div class="toggle-row">
+                  <div>
+                    <strong>Leer nombre de usuario</strong
+                    ><small>«Usuario dice…» antes del mensaje</small>
+                  </div>
+                  <input
+                    id="read-name"
+                    type="checkbox"
+                    class="switch"
+                    aria-label="Leer nombre de usuario"
+                  />
+                </div>
+                <div class="toggle-row">
+                  <div>
+                    <strong>Lectura automática</strong
+                    ><small id="auto-hint"
+                      >Los mensajes entran en la cola</small
+                    >
+                  </div>
+                  <input
+                    id="auto-read"
+                    type="checkbox"
+                    class="switch"
+                    checked
+                    aria-label="Lectura automática"
+                  />
+                </div>
+                <div class="tts-controls">
+                  <p id="tts-hint" class="tts-hint" role="status"></p>
+                  <button
+                    id="tts-fresh"
+                    type="button"
+                    class="button secondary full"
+                  >
+                    Leer desde ahora · descartar pendientes
+                  </button>
+                </div>
+
+                <button
+                  id="reading-filter-open"
+                  type="button"
+                  class="text-button reading-filter-link"
+                >
+                  Filtro de usuarios · Configurar
+                </button>
+              </div>
+            </details>
+            <section class="card assignments-card">
+              <div class="card-heading">
+                <div>
+                  <span class="section-icon">♧</span>
+                  <h2>Voces de tu comunidad</h2>
+                </div>
+                <button id="add-user" class="text-button">＋ Asignar</button>
+              </div>
+              <div id="mini-users" class="mini-users"></div>
+              <div class="tip">
+                <span>✦</span>
+                <p>
+                  Cada usuario puede tener su propia voz y avatar. Sí, incluso
+                  ese amigo.
+                </p>
+              </div>
+            </section>
+          </div>
+        </div>
+        <div id="voices-view" class="view hidden">
+          <div class="library-tabs" role="tablist" aria-label="Biblioteca">
+            <button
+              type="button"
+              id="tab-voices"
+              role="tab"
+              aria-controls="voice-panel"
+              aria-selected="true"
+            >
+              Voces</button
+            ><button
+              type="button"
+              id="tab-avatars"
+              role="tab"
+              aria-controls="avatar-panel"
+              aria-selected="false"
+              tabindex="-1"
+            >
+              Avatares
+            </button>
+          </div>
+          <section
+            class="card detail-card"
+            id="voice-panel"
+            role="tabpanel"
+            aria-labelledby="tab-voices"
+          >
+            <h2>Biblioteca de voces</h2>
+            <p>
+              Explora las voces gratuitas de Edge y el catálogo en español de
+              Fish Audio. Marca tus favoritas para encontrarlas rápido y
+              asígnalas a cada usuario.
+            </p>
+            <p id="library-speech-error" class="speech-error" role="alert"></p>
+            <div class="voice-library-tools">
+              <label class="field-label" for="voice-filter"
+                >Mostrar
+                <select id="voice-filter">
+                  <option value="free">Voces gratuitas · Edge</option>
+                  <option value="fish">Voces con API Fish</option>
+                  <option value="recommended">Recomendadas</option>
+                  <option value="favorites">Mis favoritas</option>
+                </select>
+              </label>
+              <label class="field-label" for="voice-search"
+                >Buscar una voz
+                <input
+                  id="voice-search"
+                  type="search"
+                  maxlength="100"
+                  placeholder="Nombre o acento"
+                />
+              </label>
+              <button
+                id="voice-load-more"
+                class="button secondary"
+                type="button"
+                hidden
+              >
+                Cargar más voces
+              </button>
+              <span
+                id="voice-results-count"
+                class="catalog-note"
+                aria-live="polite"
+              ></span>
+            </div>
+            <div
+              id="voice-library-controls"
+              class="voice-preview-controls"
+              hidden
+            >
+              <button
+                id="voice-preview-toggle"
+                class="button secondary"
+                type="button"
+              >
+                Ⅱ Pausar audio
+              </button>
+              <button
+                id="voice-preview-stop"
+                class="button secondary"
+                type="button"
+              >
+                ■ Detener
+              </button>
+              <span
+                id="voice-preview-status"
+                class="catalog-note"
+                aria-live="polite"
+                >Prueba una voz para escucharla.</span
+              >
+            </div>
+            <div class="voice-pagination" aria-label="Páginas de voces">
+              <button type="button" id="voice-prev" class="button secondary">
+                ← Anterior</button
+              ><span id="voice-page" role="status"></span
+              ><button type="button" id="voice-next" class="button secondary">
+                Siguiente →
+              </button>
+            </div>
+            <div id="voice-library" class="voice-library"></div>
+            <div
+              id="voice-pagination-bottom"
+              class="voice-pagination"
+              aria-label="Páginas de voces al final de la lista"
+            >
+              <button
+                type="button"
+                id="voice-prev-bottom"
+                class="button secondary"
+              >
+                ← Anterior
+              </button>
+              <span id="voice-page-bottom"></span>
+              <button
+                type="button"
+                id="voice-next-bottom"
+                class="button secondary"
+              >
+                Siguiente →
+              </button>
+            </div>
+            <button id="voice-settings" class="button primary">
+              Configurar proveedores
+            </button>
+          </section>
+          <section
+            class="card detail-card"
+            id="avatar-panel"
+            role="tabpanel"
+            aria-labelledby="tab-avatars"
+            hidden=""
+          >
+            <h2>Tu elenco</h2>
+            <p>
+              Avatares sin fondo, con boca animada y un parpadeo al terminar
+              cada mensaje completo.
+            </p>
+            <label class="field-label" for="library-avatar-search"
+              >Buscar avatar</label
+            >
+            <input
+              id="library-avatar-search"
+              type="search"
+              maxlength="100"
+              placeholder="Escribe parte del nombre o descripción"
+              aria-controls="library-avatars"
+            />
+            <div id="library-avatars" class="avatar-grid"></div>
+          </section>
+        </div>
+        <div id="users-view" class="view hidden">
+          <section class="card detail-card reading-card">
+            <h2>Quién puede hablar</h2>
+            <label class="field-label" for="reading-mode"
+              >Modo de lectura del chat</label
+            >
+            <select id="reading-mode">
+              <option value="all">Todos, excepto usuarios excluidos</option>
+              <option value="only">Solo usuarios permitidos</option>
+            </select>
+            <p id="reading-mode-hint" class="modal-note"></p>
+            <form id="reading-user-form" class="reading-user-form">
+              <div>
+                <label class="field-label" for="reading-platform"
+                  >Plataforma</label
+                >
+                <select id="reading-platform">
+                  <option value="twitch">Twitch</option>
+                  <option value="tiktok">TikTok</option>
+                  <option value="kick">Kick</option>
+                  <option value="youtube">YouTube</option>
+                  <option value="starvios">Starvios</option>
+                  <option value="test">Pruebas</option>
+                </select>
+              </div>
+              <div>
+                <label
+                  id="reading-user-label"
+                  class="field-label"
+                  for="reading-user"
+                  >Nombre de usuario de Twitch</label
+                >
+                <input
+                  id="reading-user"
+                  required
+                  maxlength="250"
+                  aria-describedby="reading-user-help"
+                  placeholder="usuario_twitch"
+                />
+              </div>
+              <div>
+                <label class="field-label" for="reading-action">Lista</label>
+                <select id="reading-action">
+                  <option value="blocked">Excluir: nunca leer</option>
+                  <option value="allowed">Permitir en modo exclusivo</option>
+                </select>
+              </div>
+              <button type="submit" class="button primary">
+                Añadir usuario
+              </button>
+            </form>
+            <p id="reading-user-help" class="modal-note"></p>
+            <p id="reading-user-error" class="inline-error" role="alert"></p>
+            <div id="reading-rules"></div>
+            <p class="modal-note">
+              Cada entrada afecta solo a su plataforma. Las exclusiones tienen
+              prioridad. Probar una lectura y las pruebas de la biblioteca
+              siguen disponibles.
+            </p>
+          </section>
+          <section class="card detail-card">
+            <div class="section-heading">
+              <div>
+                <h2>Un personaje para cada usuario</h2>
+                <p>
+                  Las asignaciones son independientes por plataforma. En YouTube
+                  usa el ID del canal del usuario.
+                </p>
+              </div>
+              <button id="add-user-page" class="button primary">
+                ＋ Asignar usuario
+              </button>
+            </div>
+            <div id="users-table"></div>
+          </section>
+        </div>
+        <div id="connections-view" class="view hidden">
+          <section class="card detail-card">
+            <div class="section-heading">
+              <div>
+                <h2>Todos tus chats, un solo estudio</h2>
+                <p>
+                  Conecta varios canales al mismo tiempo o usa solo uno. La cola
+                  se comparte.
+                </p>
+              </div>
+              <button id="add-connection-page" class="button primary">
+                ＋ Conectar canal
+              </button>
+            </div>
+            <div id="connections-list"></div>
+          </section>
+        </div>
+        <footer>
+          Hecho para las voces de tu comunidad.<span
+            >StreamVoice <i>✦</i> v1.6.0</span
+          >
+        </footer>
+      </main>
+    </div>
+    <dialog
+      id="sound-dialog"
+      class="sound-dialog"
+      aria-labelledby="sound-dialog-title"
+    >
+      <div class="modal-heading">
+        <div>
+          <span class="eyebrow">EL REMATE PERFECTO</span>
+          <h2 id="sound-dialog-title">Sonidos que se hacen escuchar.</h2>
+          <p class="modal-note">Ponle efecto a cada mensaje con {número}.</p>
+        </div>
+        <button
+          type="button"
+          class="icon-button"
+          data-close
+          aria-label="Cerrar ventana"
+        >
+          ✕
+        </button>
+      </div>
+      <section class="sound-controls">
+        <label class="check-label"
+          ><input id="sound-effects-enabled" type="checkbox" checked /> Activar
+          efectos de sonido</label
+        >
+        <div class="range-header">
+          <label for="sound-volume">Volumen de efectos</label
+          ><output id="sound-volume-out">60%</output>
+        </div>
+        <input
+          id="sound-volume"
+          type="range"
+          min="0"
+          max="100"
+          value="60"
+          aria-label="Volumen de efectos de sonido"
+        />
+        <p class="field-hint">
+          Se reproducen en el orden del mensaje. Ejemplo: «Máximo se cayó {58} y
+          despertó en el hospital {45}». Hasta 6 efectos por mensaje; los
+          códigos desconocidos se omiten.
+        </p>
+        <p class="field-hint">
+          <span id="sound-inventory">Cargando catálogo de sonidos…</span> Puedes
+          reemplazar cualquier efecto con «Importar audio» (MP3/WAV, máximo 10
+          segundos y 5 MB). El volumen general también se aplica.
+        </p>
+        <button type="button" id="sound-stop" class="button secondary small">
+          ■ Detener prueba
+        </button>
+        <label class="field-label" for="sound-search"
+          >Buscar sonido o código</label
+        >
+        <input
+          id="sound-search"
+          type="search"
+          placeholder="Yunque, trombón, 58…"
+          autocomplete="off"
+        />
+        <p id="sound-count" class="field-hint" aria-live="polite"></p>
+        <input
+          id="sound-file"
+          type="file"
+          accept="audio/*,.mp3,.wav,.m4a,.ogg"
+          hidden
+        />
+        <p id="sound-file-status" class="field-hint" role="status"></p>
+        <p class="field-hint">
+          Los archivos se guardan en este navegador y PC. Puedes restablecer la
+          recreación en cualquier momento.
+        </p>
+        <div id="sound-catalog" class="sound-catalog"></div>
+      </section>
+    </dialog>
+    <dialog id="connect-dialog" aria-labelledby="connect-dialog-title">
+      <form id="connect-form">
+        <div class="modal-heading">
+          <div>
+            <span class="eyebrow">TU PRÓXIMO DIRECTO</span>
+            <h2 id="connect-dialog-title">Conecta un canal</h2>
+          </div>
+          <button
+            type="button"
+            data-close
+            class="icon-button"
+            aria-label="Cerrar ventana"
+          >
+            ✕
+          </button>
+        </div>
+        <div
+          class="platform-picker"
+          role="group"
+          aria-label="Elegir plataforma"
+        >
+          <button
+            type="button"
+            data-platform-choice="twitch"
+            aria-pressed="true"
+          >
+            <img
+              src="/assets/platforms/twitch.svg"
+              alt=""
+              width="22"
+              height="22"
+            /><span>Twitch</span></button
+          ><button
+            type="button"
+            data-platform-choice="tiktok"
+            aria-pressed="false"
+          >
+            <img
+              src="/assets/platforms/tiktok.svg"
+              alt=""
+              width="22"
+              height="22"
+            /><span>TikTok</span></button
+          ><button
+            type="button"
+            data-platform-choice="kick"
+            aria-pressed="false"
+          >
+            <img
+              src="/assets/platforms/kick.svg"
+              alt=""
+              width="22"
+              height="22"
+            /><span>Kick</span></button
+          ><button
+            type="button"
+            data-platform-choice="youtube"
+            aria-pressed="false"
+          >
+            <img
+              src="/assets/platforms/youtube.svg"
+              alt=""
+              width="22"
+              height="22"
+            /><span>YouTube</span></button
+          ><button
+            type="button"
+            data-platform-choice="starvios"
+            aria-pressed="false"
+          >
+            <img
+              src="/assets/platforms/starvios.png"
+              alt=""
+              width="22"
+              height="22"
+            /><span>Starvios</span>
+          </button>
+        </div>
+        <label class="field-label" for="platform">Plataforma</label
+        ><select id="platform">
+          <option value="twitch">Twitch</option>
+          <option value="tiktok">TikTok LIVE</option>
+          <option value="kick">Kick</option>
+          <option value="youtube">YouTube Live</option>
+          <option value="starvios">Starvios</option></select
+        ><label class="field-label" for="channel">Canal o URL</label
+        ><input
+          id="channel"
+          placeholder="Nombre del streamer"
+          required
+          maxlength="250"
+        />
+        <p class="modal-note" id="connect-help"></p>
+        <p class="inline-error" id="connect-error"></p>
+        <button type="submit" class="button primary full">
+          Conectar al chat ↗</button
+        ><button type="button" id="connect-settings" class="text-button full">
+          Configurar credenciales
+        </button>
+      </form>
+    </dialog>
+    <dialog id="user-dialog" aria-labelledby="user-dialog-title">
+      <form id="user-form">
+        <div class="modal-heading">
+          <div>
+            <span class="eyebrow">EL CASTING DE TU CHAT</span>
+            <h2 id="user-dialog-title">Asignar voz y avatar</h2>
+          </div>
+          <button
+            type="button"
+            data-close
+            class="icon-button"
+            aria-label="Cerrar ventana"
+          >
+            ✕
+          </button>
+        </div>
+        <label class="field-label" for="user-platform">Plataforma</label
+        ><select id="user-platform">
+          <option value="twitch">Twitch</option>
+          <option value="tiktok">TikTok</option>
+          <option value="kick">Kick</option>
+          <option value="youtube">YouTube</option>
+          <option value="starvios">Starvios</option>
+          <option value="test">Pruebas</option></select
+        ><label class="field-label" for="user-name" id="user-name-label"
+          >Nombre de usuario de Twitch</label
+        ><input
+          id="user-name"
+          placeholder="Nombre exacto del usuario"
+          required
+          maxlength="250"
+          aria-describedby="user-name-help"
+        />
+        <p id="user-name-help" class="modal-note"></p>
+        <p id="user-error" class="inline-error" role="alert"></p>
+        <label class="field-label" for="user-voice">Su voz</label
+        ><select id="user-voice"></select
+        ><label class="field-label" for="user-avatar">Su avatar</label
+        ><select id="user-avatar"></select
+        ><label class="check-label"
+          ><input type="checkbox" id="user-blocked" /> Silenciar a este usuario
+          (excluir de la lectura)</label
+        ><label class="check-label"
+          ><input type="checkbox" id="user-allowed" /> Permitir en modo «Solo
+          usuarios permitidos»</label
+        >
+        <div class="dialog-actions">
+          <button class="button primary full" type="submit">
+            Guardar personaje
+          </button>
+        </div>
+      </form>
+    </dialog>
+    <dialog class="settings-dialog" id="settings-dialog" aria-labelledby="settings-dialog-title">
+      <form id="settings-form">
+        <div class="modal-heading">
+          <div>
+            <span class="eyebrow">DETRÁS DEL ESCENARIO</span>
+            <h2 id="settings-dialog-title">Ajustes y conexiones</h2>
+          </div>
+          <button
+            type="button"
+            data-close
+            class="icon-button"
+            aria-label="Cerrar ventana"
+          >
+            ✕
+          </button>
+        </div>
+        <div class="settings-tabs" role="tablist" aria-label="Secciones de ajustes">
+          <button type="button" role="tab" aria-selected="true" data-settings-tab="appearance">Apariencia</button>
+          <button type="button" role="tab" aria-selected="false" data-settings-tab="reading">Filtros de lectura</button>
+          <button type="button" role="tab" aria-selected="false" data-settings-tab="connections">Conexiones y claves</button>
+        </div>
+        <section data-settings-panel="appearance" class="settings-panel">
+          <h3>Apariencia</h3><p>Elige un tema o crea tu propia combinación. Se guarda en este equipo.</p>
+          <div class="appearance-section"><h4>Trasladar ajustes</h4><p>Exporta o importa los ajustes de esta cuenta. Las claves, cuentas y sonidos personalizados no están incluidos.</p><button type="button" class="button secondary" id="settings-export">Exportar ajustes</button> <button type="button" class="button secondary" id="settings-import">Importar ajustes</button><input type="file" id="settings-import-file" accept="application/json,.json" hidden></div>
+          <div class="appearance-section theme-selection">
+            <div><h4>Temas</h4><p>Elige uno de los diez diseños, disponible en claro y oscuro.</p></div>
+            <label class="field-label" for="appearance-theme">Tema seleccionado</label>
+            <select id="appearance-theme"></select>
+            <div class="theme-preview" aria-label="Vista previa de colores"><span class="theme-preview-swatch" id="preview-background"></span><span class="theme-preview-swatch" id="preview-foreground"></span><span class="theme-preview-swatch" id="preview-accent"></span><span id="theme-preview-label">Vista previa de la paleta</span></div>
+          </div>
+          <div class="appearance-section">
+            <div><h4>Personalización</h4><p>Si cambias un color, se activará el estilo personalizado. Puedes volver a un tema desde el selector.</p></div>
+            <div class="appearance-grid">
+              <label class="field-label">Modo<select id="appearance-mode"><option value="system">Según el sistema</option><option value="light">Claro</option><option value="dark">Oscuro</option></select></label>
+              <label class="field-label">Nombre para el saludo<input id="appearance-display-name" maxlength="50" placeholder="Tu nombre de streamer"></label>
+              <label class="field-label">Fuente<select id="appearance-font"><option value="system">Sistema</option><option value="arial">Arial</option><option value="georgia">Georgia</option><option value="mono">Monoespaciada</option></select></label>
+              <label class="field-label">Color de acento<input type="color" id="appearance-accent"></label>
+              <label class="field-label">Color de fondo<input type="color" id="appearance-background"></label>
+              <label class="field-label">Color de texto<input type="color" id="appearance-foreground"></label>
+            </div>
+            <div class="appearance-effects"><label><input type="checkbox" id="appearance-backgrounds" checked> Mostrar fondos de fantasía</label><label><input type="checkbox" id="appearance-glass" checked> Efecto de cristal translúcido</label></div>
+            <button type="button" class="button secondary" id="appearance-reset">Restablecer colores</button>
+          </div>
+        </section>
+        <section data-settings-panel="connections" class="settings-panel" hidden>
+          <h3>Conexiones y claves</h3><p id="credential-storage-note">Puedes mostrar una clave o escribir una nueva para reemplazarla.</p>
+        <details open>
+          <summary>Fish Audio · catálogo en español</summary>
+          <p>
+            Guarda tu clave Fish Audio para sintetizar y explorar el catálogo
+            público en español. La disponibilidad, licencias y cuota dependen de
+            Fish Audio.
+          </p>
+          <label class="field-label"
+            >API key de Fish Audio<input
+              name="FISH_API_KEY"
+              type="password"
+              autocomplete="off"
+              placeholder="Clave de Fish Audio"
+          /></label>
+          <label class="field-label"
+            >Modalidad de Fish Audio<select id="fish-model" name="FISH_MODEL">
+              <option value="s2.1-pro-free">
+                S2.1 Pro gratuito · requiere clave
+              </option>
+              <option value="s2.1-pro">
+                S2.1 Pro de pago · requiere saldo
+              </option>
+            </select></label
+          >
+        </details>
+        <details><summary>ElevenLabs · proveedor de voz</summary><label class="field-label">API key de ElevenLabs<input name="ELEVENLABS_API_KEY" type="password" autocomplete="off"></label></details>
+        <details id="twitch-settings">
+          <summary>Twitch · chat y seguidores</summary>
+          <p>
+            Se intenta lectura anónima. Si Twitch la rechaza, usa el usuario y
+            su token OAuth con chat:read. No envía mensajes.
+          </p>
+          <p>
+            Para leer solo a seguidores, el OAuth debe incluir
+            <code>moderator:read:followers</code> y pertenecer al dueño o a un
+            moderador del canal. Si usas una cuenta moderadora, introduce
+            también su usuario y reconecta Twitch.
+          </p>
+          <label class="field-label"
+            >Usuario de la cuenta
+            <input name="TWITCH_USERNAME" autocomplete="off" /></label
+          ><label class="field-label"
+            >Token OAuth
+            <input name="TWITCH_OAUTH_TOKEN" type="password" autocomplete="off"
+          /></label>
+        </details>
+        <details>
+          <summary>TikTok · conector no oficial</summary>
+          <p>
+            El streamer debe estar en LIVE. El conector depende de servicios
+            externos y puede requerir una clave Eulerstream o dejar de funcionar
+            si TikTok cambia.
+          </p>
+          <label class="field-label"
+            >Eulerstream API key (opcional)
+            <input name="EULER_API_KEY" type="password" autocomplete="off"
+          /></label>
+        </details>
+        <details>
+          <summary>YouTube · API key</summary>
+          <p>
+            Activa YouTube Data API v3 en Google Cloud. Pega la URL del video en
+            directo al conectar. La consulta del chat consume cuota de tu
+            proyecto.
+          </p>
+          <label class="field-label"
+            >API key
+            <input name="YOUTUBE_API_KEY" type="password" autocomplete="off"
+          /></label>
+        </details>
+        <details>
+          <summary>Kick · integración oficial opcional</summary>
+          <p>
+            El chat público funciona sin token ni webhook y sin ser el streamer.
+            Esta alternativa oficial solo se utiliza cuando introduces un token.
+          </p>
+          <p>
+            1. Crea una app en Kick Developers y habilita webhooks.<br />2.
+            Expón únicamente <code>/webhooks/kick</code> mediante un túnel HTTPS
+            hacia el puerto 4317.<br />3. Registra esa URL en tu app y obtén un
+            App Access Token para elegir cualquier canal, o un User Access Token
+            con <code>events:subscribe</code> y <code>channel:read</code> para
+            tu propio canal.<br />4. Ingresa el token y confirma abajo. El panel
+            se mantiene accesible solo localmente.
+          </p>
+          <label class="field-label"
+            >Access token
+            <input
+              name="KICK_ACCESS_TOKEN"
+              type="password"
+              autocomplete="off" /></label
+          ><label class="check-label"
+            ><input type="checkbox" id="kick-ready" /> Registré el webhook HTTPS
+            público en mi app de Kick</label
+          ><small
+            >El estado será «esperando webhook» hasta recibir un evento
+            firmado.</small
+          >
+        </details>
+        </section>
+        <section data-settings-panel="reading" class="settings-panel" hidden>
+          <h3>Filtros de lectura</h3><p>Decide qué mensajes omitirá el bot antes de leerlos.</p>
+          <label class="field-label" for="blocked-phrases">Palabras y frases bloqueadas</label>
+          <textarea id="blocked-phrases" rows="5" placeholder="Una palabra o frase por línea"></textarea>
+          <p>Si un mensaje contiene alguna expresión, no se leerá completo. No distingue mayúsculas de minúsculas.</p>
+        <details>
+          <summary>Filtros de lectura</summary>
+          <label class="check-label"
+            ><input id="skip-commands" type="checkbox" checked /> Omitir
+            comandos que empiezan por !</label
+          ><label class="check-label"
+            ><input id="skip-links" type="checkbox" checked /> Omitir mensajes
+            con enlaces</label
+          ><label class="check-label"
+            ><input id="expand-abbreviations" type="checkbox" checked />
+            Expandir abreviaciones y pronunciaciones de chat (cm, xq, ctm,
+            wn…)</label
+          ><label class="check-label"
+            ><input id="describe-emojis" type="checkbox" checked /> Describir
+            emojis y emoticonos en español (😀, 🐧, XD, =P…)</label
+          ><label class="check-label"
+            ><input id="stream-reactions" type="checkbox" checked /> Reacciones
+            de chat: besos, memes, risas y peruano hermoso</label
+          ><label class="field-label"
+            >Máximo de palabras por lectura
+            <input id="max-chars" type="number" value="55" disabled
+          /></label>
+          <p>
+            La cola admite 100 mensajes. Los nuevos se descartan cuando se
+            llena.
+          </p>
+        </details>
+        </section>
+        <p id="settings-error" class="inline-error"></p>
+        <button type="submit" class="button primary full">
+          Guardar ajustes
+        </button>
+      </form>
+    </dialog>
+    <dialog id="overlay-dialog" aria-labelledby="overlay-dialog-title">
+      <ol class="overlay-steps">
+        <li>
+          <strong>Agrega una fuente de navegador</strong>
+          <p>En OBS, añade una fuente «Navegador».</p>
+        </li>
+        <li>
+          <strong>Usa el tamaño de tu lienzo</strong>
+          <p>
+            1920 × 1080 horizontal · 1280 × 720 para 720p · 1080 × 1920
+            vertical. El fondo es transparente.
+          </p>
+        </li>
+        <li>
+          <strong>Copia y pega la dirección</strong>
+          <p>Usa la URL de abajo en la fuente de OBS.</p>
+        </li>
+        <li>
+          <strong>Captura el audio de la app</strong>
+          <p>
+            Mantén abierto el estudio. Captura su audio con una fuente de audio
+            de aplicación o del escritorio.
+          </p>
+        </li>
+      </ol>
+      <div class="modal-heading">
+        <div>
+          <span class="eyebrow">LISTO PARA SALIR AL AIRE</span>
+          <h2 id="overlay-dialog-title">Tu avatar en OBS</h2>
+        </div>
+        <button data-close class="icon-button" aria-label="Cerrar ventana">
+          ✕
+        </button>
+      </div>
+
+      <div class="copy-field">
+        <input id="overlay-url" readonly aria-label="URL del overlay" /><button
+          id="copy-overlay"
+          class="button primary"
+        >
+          Copiar
+        </button>
+      </div>
+
+      <a href="/overlay" target="_blank" class="button secondary full"
+        >Abrir vista transparente ↗</a
+      >
+      <p class="modal-note">
+        El avatar aparece al hablar y se oculta al terminar. Para textos largos,
+        usa todo el lienzo.
+      </p>
+    </dialog>
+    <section
+      id="twitch-audience-panel"
+      class="twitch-audience-panel"
+      popover
+      aria-labelledby="twitch-audience-title"
+    >
+      <h2 id="twitch-audience-title">¿A quién leer en Twitch?</h2>
+      <div
+        class="twitch-audience-options"
+        role="group"
+        aria-label="Audiencia de lectura de Twitch"
+      >
+        <button type="button" data-twitch-audience="all" aria-pressed="true">
+          Todos
+        </button>
+        <button
+          type="button"
+          data-twitch-audience="followers"
+          aria-pressed="false"
+        >
+          Seguidores, moderadores y suscriptores
+        </button>
+        <button
+          type="button"
+          data-twitch-audience="subscribers"
+          aria-pressed="false"
+        >
+          Moderadores y suscriptores
+        </button>
+        <button
+          type="button"
+          data-twitch-audience="moderators"
+          aria-pressed="false"
+        >
+          Solo moderadores
+        </button>
+      </div>
+      <p class="audience-help">
+        Solo afecta a Twitch. El dueño del canal cuenta como moderador. Se
+        mantienen tus exclusiones y la lista de usuarios permitidos.
+      </p>
+      <p id="twitch-audience-note" class="audience-note" role="status"></p>
+      <button
+        type="button"
+        id="twitch-followers-settings"
+        class="button secondary"
+        hidden
+      >
+        Configurar Twitch
+      </button>
+    </section>
+    <div id="toast" role="status" aria-live="polite"></div>
+    <script type="module" src="/app.js"></script>
+    <dialog
+      id="avatar-picker-dialog"
+      class="avatar-picker-dialog"
+      aria-labelledby="avatar-picker-title"
+    >
+      <div class="modal-heading">
+        <h2 id="avatar-picker-title">
+          Cambiar avatar
+          <span id="avatar-count" class="subtle-badge">29 AVATARES</span>
+        </h2>
+        <button
+          type="button"
+          data-close
+          class="icon-button"
+          aria-label="Cerrar ventana"
+        >
+          ✕
+        </button>
+      </div>
+      <section class="avatar-section">
+        <label class="field-label" for="avatar-search">Buscar avatar</label>
+        <input
+          id="avatar-search"
+          type="search"
+          maxlength="100"
+          placeholder="Escribe parte del nombre o descripción"
+          aria-controls="avatar-grid"
+        />
+        <div class="avatar-grid" id="avatar-grid"></div>
+      </section>
+    </dialog>
+  </body>
+</html>

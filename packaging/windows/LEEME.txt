@@ -1,0 +1,93 @@
+StreamVoice — Windows portable (64 bits)
+=======================================
+
+ABRIR EN WINDOWS 10 U 11 (x64)
+1. Copia el ZIP a la computadora de tu amigo.
+2. Clic derecho en el ZIP > Extraer todo. No ejecutes desde dentro del ZIP.
+3. Para las voces locales SIN API: abre primero
+   ACTIVAR_VOCES_LOCALES.cmd y espera a que termine (solo una vez).
+   Descarga aproximadamente 2,4 GB de modelo más dependencias: deja 6 GB libres.
+   Necesita Internet para esta preparación, no una cuenta ni una clave.
+4. Haz doble clic en INICIAR.cmd.
+5. Se abrirá el estudio en http://localhost:4317 usando tu navegador predeterminado.
+   Usa Microsoft Edge o Google Chrome actualizado. Si no se abre, entra manualmente.
+6. Pulsa «Probar una lectura» para activar el audio y elige tu voz.
+7. Mantén abierta la ventana de consola y una sola pestaña del estudio.
+   Cierra la consola o pulsa Ctrl+C para apagar el bot.
+
+Node, Python y Edge TTS están incluidos. El motor de los personajes locales
+se instala automáticamente al ejecutar ACTIVAR_VOCES_LOCALES.cmd.
+No requiere permisos de administrador. Puedes mover la carpeta completa.
+La app escucha solamente en esta computadora; no es una página pública.
+
+VOCES Y AVATARES
+- Voces locales sin API (opcional): clonación con Qwen3 a partir de muestras
+  propias registradas en assets/voice-references/. Usa solo tu voz o voces
+  con permiso de su dueño. Generan audio offline usando la CPU.
+- Diez voces neuronales de Edge en español: Chile, México, Argentina, Colombia
+  y España. El motor va incluido. Necesitan Internet, pero no una clave API.
+- Voces españolas del sistema: dependen de las voces instaladas en Windows.
+  Las voces propias de macOS no se pueden trasladar a Windows.
+  Si no aparece ninguna, agrega una voz española en la configuración de voz
+  de Windows y reinicia el navegador; puedes usar Edge TTS mientras tanto.
+- Fish Audio: nueve voces genéricas en español y búsqueda en el catálogo
+  público. Ingresa TU clave en Ajustes > Fish Audio.
+  Estas entradas de Fish necesitan clave; para los personajes sin API
+  usa sus nuevas entradas «local sin API», disponibles también en Mac.
+  Se mantiene «S2.1 Pro gratuito» por defecto. No cambia solo al modelo de pago.
+  El proveedor determina disponibilidad, límites y duración de su gratuidad.
+- ElevenLabs: ingresa TU clave para cargar las voces compatibles con español
+  de tu cuenta. Su uso consume los créditos del plan contratado.
+- Cinco avatares transparentes: Chibi Caos, Chibi Ruby, Arcoíris, Rockero y Rosa, con boca animada y un
+  parpadeo al completar cada mensaje; asignables por usuario.
+  Suben desde abajo al empezar a hablar y bajan para esconderse al terminar.
+  En espera permanecen ocultos, tanto en el estudio como en el overlay OBS.
+
+CONEXIONES Y MULTISTREAM
+Conecta uno o varios canales; sus mensajes alimentan la misma cola.
+- Twitch: nombre o enlace del canal. Si exige autenticación, configura OAuth.
+- TikTok: @usuario en directo. Conector comunitario; sujeto a disponibilidad.
+- YouTube: URL del VIDEO EN DIRECTO y tu clave de YouTube Data API v3.
+- Kick: requiere token propio y webhook HTTPS público configurado. Esta edición
+  portable no crea ese webhook automáticamente. Publica únicamente la ruta
+  /webhooks/kick, siguiendo la documentación de Kick, nunca el panel completo.
+
+OBS
+Con el bot y el estudio abiertos, añade una fuente de navegador de 600 x 600:
+http://localhost:4317/overlay
+El audio sale del estudio. Captura el audio del navegador/escritorio en OBS.
+
+CLAVES Y PREFERENCIAS
+El paquete se entrega sin claves, canales ni configuraciones personales.
+Cada amigo usa sus propias claves. Las claves de Ajustes se guardan solo durante
+la sesión: al cerrar la consola, deberá ingresarlas otra vez.
+Para conservarlas opcionalmente: copia app/.env.example como app/.env y completa
+los campos. Ese archivo queda en texto; no lo compartas ni lo incluyas en un ZIP.
+Las preferencias y asignaciones quedan en el navegador de cada computadora.
+Mantén la misma dirección (localhost) y navegador para conservarlas.
+
+COSTO
+El bot no cobra ni requiere una suscripción. Las voces de Edge dependen de un
+servicio externo y no tienen garantía de disponibilidad ilimitada. Los servicios
+con clave tienen sus propios planes, cuotas y condiciones. Los chats necesitan
+Internet y algunos proveedores requieren configuración adicional.
+
+SI ALGO FALLA
+- «Puerto ocupado»: cierra la otra consola del bot antes de abrirlo otra vez.
+- «Paquete incompleto»: vuelve a extraer el ZIP completo, conservando carpetas.
+- No hay sonido: pulsa Probar una lectura, revisa volumen/pestaña y prueba Edge.
+- Voz Fish no disponible: revisa TU clave, modalidad elegida y cuenta del proveedor.
+- Windows puede advertir sobre un archivo descargado sin firma comercial.
+  Este paquete no tiene firma de editor; comprueba su procedencia antes de abrirlo.
+- Si faltan archivos del runtime o el antivirus los bloquea, no desactives la
+  protección: revisa el aviso y vuelve a obtener el paquete de su fuente.
+
+No está probado en Windows ARM o de 32 bits. Se preparó en macOS: se validaron
+el contenido, los binarios x64, el servidor y la generación MLX de 17 voces
+locales. El instalador Qwen3 de CPU todavía necesita una prueba en Windows real.
+
+LICENCIAS
+Node y Python incluyen sus licencias en runtime/. Los paquetes de terceros
+conservan sus licencias en app/node_modules/ y runtime/python/Lib/site-packages/.
+Las voces de personajes son modelos comunitarios, no oficiales ni respaldados
+por sus personajes o personas. Conservan las condiciones del proveedor.

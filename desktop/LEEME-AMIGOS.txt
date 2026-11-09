@@ -1,0 +1,10 @@
+StreamVoice · ESCRITORIO 1.6.0
+
+1. Descomprime el archivo ZIP completo en tu equipo.
+2. Abre «StreamVoice» (Windows: StreamVoice.exe; Mac: StreamVoice.app).
+3. En el primer inicio introduce la dirección HTTPS que te entregue el administrador y tu usuario y contraseña.
+4. Desde el estudio puedes configurar el overlay para OBS.
+
+el administrador debe tener abierta su aplicación de administrador, con el acceso remoto activado, mientras uses la app. Si cambia la dirección, pulsa «Cambiar dirección de administración» en la pantalla de acceso.
+
+Esta entrega no está firmada ni notarizada: el sistema operativo puede mostrar una advertencia al abrirla. Las versiones Windows y Mac Intel se empaquetaron desde un Mac Apple Silicon y todavía necesitan una prueba en sus sistemas nativos. El actualizador automático aún no está configurado.

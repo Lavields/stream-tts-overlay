@@ -1,0 +1,37 @@
+{
+  "name": "stream-tts-overlay",
+  "version": "1.6.0",
+  "private": true,
+  "type": "module",
+  "description": "Lector TTS multistream (Twitch, YouTube, Kick, TikTok) con avatares animados y overlay para OBS",
+  "scripts": {
+    "setup:admin": "node scripts/create-admin.mjs",
+    "start": "node --env-file-if-exists=.env server.mjs",
+    "build:windows": "python3 scripts/build_windows_portable.py",
+    "verify:windows": "node scripts/verify_windows_portable.mjs",
+    "test": "node --test test/*.test.mjs",
+    "bench:voices": "node --expose-gc scripts/benchmark-voices.mjs",
+    "bench:avatars": "node scripts/benchmark-avatars.mjs",
+    "setup:voices": "python3 -m venv .venv && .venv/bin/python -m pip install -r requirements-voices.txt",
+    "build:mac": "python3 scripts/build_portable.py --target macos-arm64",
+    "verify:portable": "node scripts/verify_portable.mjs",
+    "desktop:start": "electron .",
+    "desktop:build": "node desktop/build.mjs",
+    "desktop:build:windows-installer": "node desktop/build-windows-installer.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "tiktok-live-connector": "^2.0.0",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "@electron/packager": "^20.3.0",
+    "electron": "^45.0.0",
+    "prettier": "3.9.10"
+  },
+  "main": "desktop/main.cjs",
+  "author": "Luis Paria",
+  "license": "MIT"
+}

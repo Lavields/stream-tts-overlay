@@ -1,0 +1,5 @@
+StreamVoice · VERSIÓN DE PRUEBA
+
+Esta versión de prueba se conecta al servicio de administración en la nube. Necesitas una cuenta creada por el administrador. El inicio de sesión se ha probado con un usuario de Windows; esta compilación todavía requiere pruebas en Windows y Mac Intel.
+La configuración de cada usuario y sus claves API permanecen en su equipo. Las claves se guardan cifradas con el almacenamiento seguro del sistema.
+Las actualizaciones automáticas todavía no están configuradas. Esta aplicación no está firmada ni notarizada. Windows y Mac Intel necesitan pruebas nativas.

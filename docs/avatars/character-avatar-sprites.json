@@ -1,0 +1,27 @@
+{
+  "date": "2026-10-27",
+  "layout": [
+    "closed",
+    "open",
+    "closed-blink",
+    "open-blink"
+  ],
+  "assets": [
+    {
+      "id": "cat-calvo",
+      "sprite": "public/assets/avatars/cat-calvo-sprites.png",
+      "thumbnail": "public/assets/avatars/cat-calvo-thumb.png",
+      "frameSize": 512,
+      "spriteBytes": 992584,
+      "thumbnailBytes": 31293,
+      "frameHashes": [
+        "dd238c1afb6c684a8b6bd7a62cf2c36fd2b8a7e2b65549eff272dacd949e9a81",
+        "53878f042101a7b2fb56c89a3bfd116bbdbd1a2f5591fae48be7f10f5495b2e7",
+        "ca86b3a768f3a81cf887e540931d7f0e0e83d027fd0896db73bf26b8599e7fb1",
+        "ae1896c48bb53ea80cc9eb6c83bac33755ffc223fd59be81139c66554ef1683e"
+      ],
+      "sha256": "abfa81030795ad6c53ec13f1e4f53577d5c4ae04c88252b51e45a924c4fb838a",
+      "removedMattePixels": 46925
+    }
+  ]
+}

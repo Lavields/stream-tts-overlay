@@ -1,0 +1,8 @@
+name = "streamvoice-actualizaciones-windows"
+main = "worker.mjs"
+compatibility_date = "2026-10-28"
+workers_dev = true
+
+[[r2_buckets]]
+binding = "RELEASE_BUCKET"
+bucket_name = "streamvoice-windows-distribucion"

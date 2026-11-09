@@ -1,0 +1,65 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {spawn,execFileSync} from 'node:child_process';
+import {once} from 'node:events';
+import {mkdtemp,rm} from 'node:fs/promises';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
+const control='http://127.0.0.1:14628',app='http://127.0.0.1:14629',bootstrap='test-bootstrap-secret';let directory,central,studio,remoteStudio,wrongCertStudio;
+const credentialStore = new Map();
+const json=(url,data,cookie)=>fetch(url,{method:'POST',headers:{'Content-Type':'application/json',...(cookie?{Cookie:cookie}:{})},body:JSON.stringify(data)});
+async function ready(child,marker){let output='';for await(const chunk of child.stdout){output+=chunk;if(output.includes(marker))return;}throw Error('No se inició '+marker);}
+async function login(username,password){const response=await json(app+'/api/auth/login',{username,password});assert.equal(response.status,200,await response.clone().text());return response.headers.get('set-cookie').split(';')[0];}
+test.before(async()=>{
+ directory=await mkdtemp(join(tmpdir(),'streamvoice-control-'));
+ execFileSync('openssl',['req','-x509','-newkey','rsa:2048','-nodes','-days','1','-keyout',join(directory,'key.pem'),'-out',join(directory,'cert.pem'),'-subj','/CN=streamvoice-test'],{stdio:'ignore'});
+ execFileSync('openssl',['req','-x509','-newkey','rsa:2048','-nodes','-days','1','-keyout',join(directory,'other-key.pem'),'-out',join(directory,'other-cert.pem'),'-subj','/CN=other-test'],{stdio:'ignore'});
+ central=spawn(process.execPath,['control/server.mjs'],{env:{...process.env,CONTROL_DATA:join(directory,'accounts.json'),CONTROL_PORT:'14628',CONTROL_BOOTSTRAP:bootstrap,CONTROL_CERT:join(directory,'cert.pem'),CONTROL_KEY:join(directory,'key.pem'),CONTROL_STATE:join(directory,'network.json'),CONTROL_TLS_BIND:'127.0.0.1'},stdio:['ignore','pipe','pipe']});await ready(central,'CONTROL_READY');
+ let r=await fetch(control+'/v1/bootstrap',{method:'POST',headers:{'Content-Type':'application/json','X-Bootstrap-Token':bootstrap},body:JSON.stringify({password:'admin-test-password'})});assert.equal(r.status,201);
+ studio=spawn(process.execPath,['--import','./test/fixtures/youtube-control-fetch.mjs','server.mjs'],{env:{...process.env,PORT:'14629',STREAMVOICE_CREDENTIAL_VAULT:'1',STREAMVOICE_REMOTE_AUTH:'1',STREAMVOICE_CONTROL_URL:control,STREAMVOICE_CONTROL_CONFIG:join(directory,'config.json'),STREAMVOICE_OVERLAY_TOKENS_FILE:join(directory,'overlays.json'),STREAMVOICE_AUTH_REFRESH_MS:'1',FISH_API_KEY:'',YOUTUBE_API_KEY:''},stdio:['ignore','pipe','pipe','ipc']});
+ studio.on('message', message => { if(message?.type!=='credential-vault')return; if(message.action==='save') credentialStore.set(message.user,message.value); studio.send({type:'credential-vault-result',id:message.id,value:message.action==='load'?(credentialStore.get(message.user)||{}):null}); });
+ await ready(studio,'StreamVoice →');
+});
+test.after(async()=>{for(const child of [wrongCertStudio,remoteStudio,studio,central]){if(child && child.exitCode===null){child.kill('SIGTERM');await Promise.race([once(child,'exit'),new Promise(resolve=>setTimeout(resolve,3000))]);}}await rm(directory,{recursive:true,force:true});});
+test('el administrador crea usuarios y el servidor aplica sus permisos',async()=>{
+ const admin=await login('admin','admin-test-password');
+ assert.equal((await fetch(app+'/admin',{headers:{Cookie:admin}})).status,200);
+ const user={username:'amiga',password:'friend-test-password',active:true,channels:{twitch:['mi_canal'],youtube:['UC'+'A'.repeat(22)]},avatars:['sock'],voices:['edge:es-CL-CatalinaNeural']};
+ assert.equal((await json(app+'/api/admin/users',{...user,username:'invalida',voices:['edge:no-existe']},admin)).status,400);
+ let r=await json(app+'/api/admin/users',user,admin);assert.equal(r.status,200,await r.clone().text());
+ r=await json(app+'/api/admin/network',{enabled:true,port:14630},admin);assert.equal(r.status,200,await r.clone().text());
+ remoteStudio=spawn(process.execPath,['server.mjs'],{env:{...process.env,PORT:'14631',STREAMVOICE_REMOTE_AUTH:'1',STREAMVOICE_CONTROL_URL:'https://127.0.0.1:14630',STREAMVOICE_CONTROL_CERT:join(directory,'cert.pem'),STREAMVOICE_CONTROL_CONFIG:join(directory,'remote-config.json'),STREAMVOICE_AUTH_REFRESH_MS:'1',FISH_API_KEY:'',YOUTUBE_API_KEY:''},stdio:['ignore','pipe','pipe']});await ready(remoteStudio,'StreamVoice →');
+ r=await json('http://127.0.0.1:14631/api/auth/login',{username:'amiga',password:'friend-test-password'});assert.equal(r.status,200,await r.clone().text());
+ const remoteAdmin=await json('http://127.0.0.1:14631/api/auth/login',{username:'admin',password:'admin-test-password'});assert.equal(remoteAdmin.status,200);const remoteAdminCookie=remoteAdmin.headers.get('set-cookie').split(';')[0];
+ assert.equal((await json('http://127.0.0.1:14631/api/admin/network',{enabled:false,port:14630},remoteAdminCookie)).status,403);
+ wrongCertStudio=spawn(process.execPath,['server.mjs'],{env:{...process.env,PORT:'14632',STREAMVOICE_REMOTE_AUTH:'1',STREAMVOICE_CONTROL_URL:'https://127.0.0.1:14630',STREAMVOICE_CONTROL_CERT:join(directory,'other-cert.pem'),STREAMVOICE_CONTROL_CONFIG:join(directory,'bad-config.json')},stdio:['ignore','pipe','pipe']});await ready(wrongCertStudio,'StreamVoice →');
+ assert.equal((await json('http://127.0.0.1:14632/api/auth/login',{username:'amiga',password:'friend-test-password'})).status,503);
+ let friend=await login('amiga','friend-test-password');
+ assert.equal((await fetch(app+'/admin',{headers:{Cookie:friend}})).status,403);
+ assert.equal((await json(app+'/api/connect',{platform:'twitch',channel:'otro_canal'},friend)).status,403);
+ assert.equal((await json(app+'/api/connect',{platform:'kick',channel:'mi_canal'},friend)).status,403);
+ assert.equal((await json(app+'/api/overlay',{avatar:'cat-black',text:'hola'},friend)).status,403);
+ assert.equal((await json(app+'/api/speech',{provider:'edge',voiceId:'es-MX-JorgeNeural',text:'hola'},friend)).status,403);
+ await json(app+'/api/settings',{YOUTUBE_API_KEY:'test-key'},friend);
+ assert.deepEqual(await (await json(app+'/api/settings/reveal',{name:'YOUTUBE_API_KEY'},friend)).json(),{value:'test-key'});
+ assert.deepEqual(await (await json(app+'/api/settings/reveal',{name:'YOUTUBE_API_KEY'},admin)).json(),{value:''});
+ assert.equal((await json(app+'/api/settings/reveal',{name:'TWITCH_USERNAME'},friend)).status,400);
+ assert.equal((await json(app+'/api/settings/reveal',{name:'YOUTUBE_API_KEY'})).status,401);
+ assert.equal((await (await fetch(app+'/api/config',{headers:{Cookie:admin}})).json()).configured.YOUTUBE_API_KEY,false);
+ await json(app+'/api/connect',{platform:'youtube',channel:'aaaaaaaaaaa'},friend);
+ await json(app+'/api/connect',{platform:'youtube',channel:'bbbbbbbbbbb'},friend);
+ await new Promise(resolve=>setTimeout(resolve,100));
+ const eventsAbort=new AbortController();const stream=await fetch(app+'/api/events',{headers:{Cookie:friend},signal:eventsAbort.signal});const snapshot=new TextDecoder().decode((await stream.body.getReader().read()).value);eventsAbort.abort();
+ assert.match(snapshot,/"channel":"aaaaaaaaaaa","state":"connected"/);assert.match(snapshot,/"channel":"bbbbbbbbbbb","state":"error"/);assert.match(snapshot,/canal dueño/);
+ r=await fetch(app+'/api/auth/me',{headers:{Cookie:friend}});assert.equal(r.status,200);const policy=await r.json();assert.deepEqual(policy.voices,user.voices);assert.deepEqual(policy.channels,user.channels);
+ await json(app+'/api/auth/logout',{},friend);friend=await login('amiga','friend-test-password');r=await fetch(app+'/api/auth/me',{headers:{Cookie:friend}});assert.equal((await r.json()).overlayUrl,policy.overlayUrl);
+ assert.equal((await (await fetch(app+'/api/config',{headers:{Cookie:friend}})).json()).configured.YOUTUBE_API_KEY,true);
+ r=await json(app+'/api/admin/user',{...user,password:'',active:false},admin);assert.equal(r.status,200);
+ await new Promise(resolve=>setTimeout(resolve,10));
+ r=await fetch(app+'/api/auth/me',{headers:{Cookie:friend}});assert.equal(r.status,401);
+ assert.equal((await json(app+'/api/auth/login',{username:'amiga',password:'friend-test-password'})).status,401);
+});
+test('las rutas de administración rechazan usuarios sin sesión y bootstrap sin autorización',async()=>{
+ assert.equal((await fetch(app+'/api/admin/users')).status,401);
+ assert.equal((await json(control+'/v1/bootstrap',{password:'new-password'})).status,403);
+});

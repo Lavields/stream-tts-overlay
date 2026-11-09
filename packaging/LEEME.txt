@@ -1,0 +1,66 @@
+StreamVoice {{VERSION}} — {{SISTEMA}}
+Entrega personal para: {{USUARIO}}
+
+1. Extrae TODO el archivo en una carpeta donde puedas guardar archivos.
+   En Mac, el archivo .tar.gz conserva permisos y enlaces de los motores.
+2. Abre {{INICIAR}}. No necesitas instalar Node ni Python.
+3. Mantén la consola abierta y entra en http://localhost:4317.
+4. Usuario: {{USUARIO}}. Usa la contraseña entregada por el administrador.
+   La contraseña no está escrita en este paquete; incluye su hash con sal.
+5. Prueba una voz de Microsoft Edge TTS. Requiere Internet y no pide clave.
+   Para Fish Audio, entra en Ajustes e ingresa TU clave. Las claves ingresadas
+   duran hasta cerrar el servidor y no se comparten entre instalaciones.
+6. Conecta tus canales desde Conexiones. La cuenta limita canales y avatares.
+7. Pulsa «Overlay para OBS», copia TU enlace y pégalo en una fuente de navegador de OBS
+   de 1920 x 1080. No uses un enlace de otra instalación ni lo publiques.
+   El audio sale del estudio: captura el audio de ese navegador en OBS.
+8. Para cerrar, usa Ctrl+C en la consola. Puedes volver a abrir el mismo archivo.
+
+PERMISOS
+streamer1: Starvios streamer1; Twitch streamer1; Kick streamer1; TikTok streamer1.
+Avatares: Waren Gamer, Waren Reacción, Waren Meme.
+streamer2: Twitch streamer2; Kick streamer2; TikTok streamer2.
+Avatares: Arcoíris, Rockero, Rosa, Chibi Rubí y los tres gatos.
+El identificador TikTok streamer2 fue indicado por el administrador; no pudo
+confirmarse públicamente durante esta entrega. Usa el @usuario, no ManKa Style.
+admin: acceso a todos los canales y los doce avatares.
+Cada archivo de entrega contiene únicamente la cuenta de su destinatario.
+
+DATOS Y OBS
+El primer inicio genera app/.data/accounts.json con un token OBS exclusivo.
+No borres esa carpeta si quieres conservar tu enlace. No compartas la carpeta
+después de usarla: comparte únicamente el archivo original entregado.
+Las preferencias y sonidos propios quedan en el navegador, por cuenta.
+Las claves pueden ingresarse en Ajustes. Si decides usar app/.env, completa
+la plantilla .env.example con tus propias claves y nunca compartas ese archivo.
+
+REQUISITOS Y LIMITES
+Windows: procesador Intel/AMD x64, Windows 11 de 64 bits; no incluye Windows ARM.
+Mac: Apple Silicon ARM64, macOS 11 o posterior. Esta entrega no está firmada
+ni notarizada. Si el sistema bloquea el inicio, revisa el aviso y procedencia
+con el administrador; no desactives las protecciones del equipo.
+Los chats y las voces remotas necesitan Internet. Fish y ElevenLabs dependen
+de las cuotas y permisos de tu cuenta. No incluye modelos de voz locales.
+TikTok y Starvios dependen de conectores y disponibilidad externa.
+Kick lee el chat público sin token ni webhook y sin ser el streamer (conector no oficial).
+La integración oficial con token y webhook HTTPS es opcional.
+Expón solo /webhooks/kick, nunca el panel completo, si configuras un túnel.
+
+COMPROBACIONES
+Se comprueban integridad SHA-256, cuentas, aislamiento, permisos, login, overlay,
+sonidos y archivos estáticos en extracción limpia. Los binarios Windows se
+inspeccionan como x64 desde Mac: abrir INICIAR.cmd, sonido, chats y OBS en
+Windows real quedan pendientes de una prueba en ese sistema.
+La versión Mac se ejecuta con sus propios motores incluidos en Apple Silicon.
+
+PROBLEMAS FRECUENTES
+Puerto ocupado: cierra la otra consola del bot y vuelve a abrir.
+Sin audio: pulsa Probar una lectura, revisa volumen y prueba Edge TTS.
+Login incorrecto: confirma usuario/contraseña y que sea tu archivo de entrega.
+Voz Fish sin audio: revisa tu clave, saldo/cuota y disponibilidad del proveedor.
+No aparece en OBS: copia el enlace desde tu sesión; habla para que suba el avatar.
+
+LICENCIAS
+Los motores incluyen sus licencias en runtime/. Dependencias npm y Python
+conservan sus avisos de terceros. Las voces comunitarias conservan los términos
+del proveedor y no implican respaldo de las personas o personajes representados.

@@ -1,0 +1,102 @@
+{
+  "verifiedAt": "2026-10-27",
+  "provider": "Fish Audio",
+  "method": "Selección de voces genéricas en español del catálogo público de Fish Audio. Desde la app se puede buscar el resto del catálogo con una clave propia.",
+  "requested": [
+    {
+      "id": "692eb1e1023242219dc8caae8c56fb12",
+      "name": "Verity",
+      "sourceName": "Verity",
+      "provider": "fish",
+      "language": "es",
+      "likes": 1777,
+      "source": "https://fish.audio/es/m/692eb1e1023242219dc8caae8c56fb12/",
+      "licensed": false,
+      "tag": "verity"
+    },
+    {
+      "id": "779cbebcb4c04e74b73080a44bc98358",
+      "name": "Cute girl",
+      "sourceName": "Cute girl",
+      "provider": "fish",
+      "language": "es",
+      "likes": 1209,
+      "source": "https://fish.audio/es/m/779cbebcb4c04e74b73080a44bc98358/",
+      "licensed": false,
+      "tag": "cutegirl"
+    },
+    {
+      "id": "610a5884a3c046be9a4f031291531a68",
+      "name": "Terror analogic",
+      "sourceName": "Terror analogic",
+      "provider": "fish",
+      "language": "es",
+      "likes": 696,
+      "source": "https://fish.audio/es/m/610a5884a3c046be9a4f031291531a68/",
+      "licensed": false,
+      "tag": "terror"
+    },
+    {
+      "id": "efa1e3e5a19644808edcbfb6b71f102d",
+      "name": "Madre",
+      "provider": "fish",
+      "language": "es",
+      "source": "https://fish.audio/es/m/efa1e3e5a19644808edcbfb6b71f102d/",
+      "licensed": false,
+      "selection": "Favorita seleccionada por el usuario el 2026-10-16",
+      "tag": "madre"
+    },
+    {
+      "id": "5e816f5a0658460b960881a24733c418",
+      "name": "Mujer",
+      "provider": "fish",
+      "language": "es",
+      "source": "https://fish.audio/es/m/5e816f5a0658460b960881a24733c418/",
+      "licensed": false,
+      "selection": "Favorita seleccionada por el usuario el 2026-10-16",
+      "tag": "mujer2"
+    },
+    {
+      "id": "08ecaf85075041fc9aa66698ae430dc4",
+      "name": "COLOMBIANA",
+      "provider": "fish",
+      "language": "es",
+      "source": "https://fish.audio/es/m/08ecaf85075041fc9aa66698ae430dc4/",
+      "licensed": false,
+      "selection": "Favorita seleccionada por el usuario el 2026-10-16",
+      "tag": "colombiana"
+    },
+    {
+      "id": "8c367b71c42a4858bc2dd688ebe1cabc",
+      "name": "Chilena",
+      "provider": "fish",
+      "language": "es",
+      "source": "https://fish.audio/es/m/8c367b71c42a4858bc2dd688ebe1cabc/",
+      "licensed": false,
+      "selection": "Favorita seleccionada por el usuario el 2026-10-16",
+      "tag": "chilena"
+    },
+    {
+      "id": "e5c2cf742d864a288e63a97774b727e4",
+      "name": "argentina",
+      "provider": "fish",
+      "language": "es",
+      "source": "https://fish.audio/es/m/e5c2cf742d864a288e63a97774b727e4/",
+      "licensed": false,
+      "selection": "Favorita seleccionada por el usuario el 2026-10-16",
+      "tag": "argentina"
+    },
+    {
+      "id": "9a84d6f18c034dc8b98b2c7c3c7eb8cb",
+      "name": "mujer mexicana mama",
+      "provider": "fish",
+      "language": "es",
+      "source": "https://fish.audio/es/m/9a84d6f18c034dc8b98b2c7c3c7eb8cb/",
+      "licensed": false,
+      "selection": "Favorita seleccionada por el usuario el 2026-10-16",
+      "tag": "mexicana"
+    }
+  ],
+  "community": [],
+  "selectionUpdatedAt": "2026-10-16"
+}

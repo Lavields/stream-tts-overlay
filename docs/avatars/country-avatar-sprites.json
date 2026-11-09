@@ -1,0 +1,181 @@
+{
+  "date": "2026-10-27",
+  "layout": [
+    "closed",
+    "open",
+    "closed-blink",
+    "open-blink"
+  ],
+  "assets": [
+    {
+      "id": "cat-peru",
+      "country": "Perú",
+      "sprite": "public/assets/avatars/cat-peru-sprites.png",
+      "thumbnail": "public/assets/avatars/cat-peru-thumb.png",
+      "frameSize": 512,
+      "spriteBytes": 1542482,
+      "thumbnailBytes": 45249,
+      "frameHashes": [
+        "da9225c59ec0a745e315ed63d3c125eb75f6569993ab3d87b99b5eecdb185a0e",
+        "aadf9827f871749a9fa61767377b2f2a4c1760b34a0565adf18c3c26d53e9f32",
+        "5742f21332b2e89d8eb1aed5321731b2d64868a4fa3a2c4d7587972165841387",
+        "890a352b9550fb3e38af227c7c0035ecca2b237df87bcae60ea31a4b51d76e5e"
+      ],
+      "sha256": "e602b303616bd018e67d259e28eb82100e6c9268a943694462ab6786b5b82989",
+      "removedMattePixels": 58011
+    },
+    {
+      "id": "cat-chile",
+      "country": "Chile",
+      "sprite": "public/assets/avatars/cat-chile-sprites.png",
+      "thumbnail": "public/assets/avatars/cat-chile-thumb.png",
+      "frameSize": 512,
+      "spriteBytes": 1506083,
+      "thumbnailBytes": 43810,
+      "frameHashes": [
+        "4226a2e23a0d65ecb6d3ad6f89a4e9732635cd22e1668ab3dab846f868af0103",
+        "33f3e9e842d5f1e17fdbfbe665ecb04f43d4df27f8e1c10db20a83b03837137a",
+        "768943d87841f2dfe6e7e9756854469dd71fc5c5a0e40131f8ae4896db90c25a",
+        "461114c91283f5e6800a6470613b898563a8b0574416d85a0aeb798a2309ef5d"
+      ],
+      "sha256": "f2abeecf146224305bb062ac3d49b1d62324a02da3de86c44bc39764bfc16e82",
+      "removedMattePixels": 40873
+    },
+    {
+      "id": "cat-argentina",
+      "country": "Argentina",
+      "sprite": "public/assets/avatars/cat-argentina-sprites.png",
+      "thumbnail": "public/assets/avatars/cat-argentina-thumb.png",
+      "frameSize": 512,
+      "spriteBytes": 1592739,
+      "thumbnailBytes": 45881,
+      "frameHashes": [
+        "dce061bfdc7528d3648b21f4c9883ef68ae99f9a4a25912d3503087cdd94442c",
+        "ddcd57bf9179c9a05b6a5623aa93570d51d3cbf9c1c4c119e7a8d1f9c1617920",
+        "d6edb4f1018831e0de6b2bce35578ab373845c2c8bf9d351115fb30e2a208dd8",
+        "c105cd4dc38ab7b87a5ae338a7e24f629076da0c980fa27d5ae615620b186d5f"
+      ],
+      "sha256": "44cfacf2c4c917644b67bef80c0249ccd1243e2af612d9b45a9511ce09b7573e",
+      "removedMattePixels": 44018
+    },
+    {
+      "id": "cat-bolivia",
+      "country": "Bolivia",
+      "sprite": "public/assets/avatars/cat-bolivia-sprites.png",
+      "thumbnail": "public/assets/avatars/cat-bolivia-thumb.png",
+      "frameSize": 512,
+      "spriteBytes": 1479752,
+      "thumbnailBytes": 42972,
+      "frameHashes": [
+        "2b51d77a56360662e8994a4f9a80bf8da017a28bb8db55f15585d3dcd4283f39",
+        "9c7efaabbfba525508ba6b8366266dac35d088bc60cae7e027cf4c1383b6cd2d",
+        "91c502ee8378a3f4d907bcddf446eedc6e85c557cb1c3e608306536fc763e6f6",
+        "05702e050d8c888c3695d3e8538c7066a9bbc216216198c6bc56613c53bed7cb"
+      ],
+      "sha256": "72992af376c6e78eb168b8c76fdcae18ca0aed950841762a9c0a555d6047d496",
+      "removedMattePixels": 28156
+    },
+    {
+      "id": "cat-mexico",
+      "country": "México",
+      "sprite": "public/assets/avatars/cat-mexico-sprites.png",
+      "thumbnail": "public/assets/avatars/cat-mexico-thumb.png",
+      "frameSize": 512,
+      "spriteBytes": 1643112,
+      "thumbnailBytes": 47573,
+      "frameHashes": [
+        "0779d44db41093313b226d8d531b450179d3a4c11abe1309fbc5c4051c036172",
+        "3be54a85d3066c8460bbc8c5a675d943cd3a95a43cc2219230829d57f384ef25",
+        "1fab49587626a65108351270c7c10ac0f36bf2598d5511b0e65e6e33d666cc53",
+        "485e62dd7a58c166a40a25b86a408d946d5e2d2ec40e128e732ae18d5e6e7a14"
+      ],
+      "sha256": "96422730db01527c4b427d0547f80881467603d90bb57f2b751ff1bb0896dbb3",
+      "removedMattePixels": 30011
+    },
+    {
+      "id": "cat-colombia",
+      "country": "Colombia",
+      "sprite": "public/assets/avatars/cat-colombia-sprites.png",
+      "thumbnail": "public/assets/avatars/cat-colombia-thumb.png",
+      "frameSize": 512,
+      "spriteBytes": 1471598,
+      "thumbnailBytes": 42494,
+      "frameHashes": [
+        "1a97dfcfccef63873fdd77886c305a5ffdec275224f6b57f6dcc4706e977e421",
+        "4a35628840f43edc7b2eb496a136a9243846be8baa2eacbab97e2063d4b52c79",
+        "06973f05b95f1d953b50cccedc4b0d6c9bbf77fe91a0e5bd9ff441140463fe0a",
+        "afbf716e34971e273c2900d5448667acb3c5bf002f9e0fbfa9d23232ab238810"
+      ],
+      "sha256": "5bd315639112507016703627ce174dabac11f5c147a83df3316b874ab6629bf7",
+      "removedMattePixels": 57073
+    },
+    {
+      "id": "cat-venezuela",
+      "country": "Venezuela",
+      "sprite": "public/assets/avatars/cat-venezuela-sprites.png",
+      "thumbnail": "public/assets/avatars/cat-venezuela-thumb.png",
+      "frameSize": 512,
+      "spriteBytes": 1487990,
+      "thumbnailBytes": 42850,
+      "frameHashes": [
+        "6973638385a2d636f88e10474b1647ee886c2b44c3e91776fb12e97ddb8fbfe8",
+        "0613dc7f08b4ff17599e8df5f6b5444ce5549ea96a8c247b7645a74031c626ca",
+        "5a8c78414a5c97d7a1ba692384974c756ab93299a2803872778f5026dcb5e164",
+        "3ca94fcc342b06cf6dd25e8150f6981ec6f9a37e36cc83bd68599f194100b4be"
+      ],
+      "sha256": "455e6c9227d416d326787905725ded210fe81c9cbf8c89b43f9b6a9f9fa41ce5",
+      "removedMattePixels": 33004
+    },
+    {
+      "id": "cat-espana",
+      "country": "España",
+      "sprite": "public/assets/avatars/cat-espana-sprites.png",
+      "thumbnail": "public/assets/avatars/cat-espana-thumb.png",
+      "frameSize": 512,
+      "spriteBytes": 1549913,
+      "thumbnailBytes": 44107,
+      "frameHashes": [
+        "52658fbb4cc119af47999b80dbfd07f0f391ded7989f7dc21903f3bb825b5330",
+        "cc372d6039161d4dd05727e8ef575e6754059fbf797239f42b0d39882987d20d",
+        "79f4335170e90a4e20e307e30ad5d87b53edbb08418d64c0f91bdc4fecbc5d47",
+        "873b55b70cab6d1a8bd56ac9626ec9ce77cc4a585cd1f19d33a6ac8696538faf"
+      ],
+      "sha256": "0e0edf5b552201fefea50122e99d8ad755f029d2e065a410c61d649579c48f36",
+      "removedMattePixels": 41342
+    },
+    {
+      "id": "cat-japon",
+      "country": "Japón",
+      "sprite": "public/assets/avatars/cat-japon-sprites.png",
+      "thumbnail": "public/assets/avatars/cat-japon-thumb.png",
+      "frameSize": 512,
+      "spriteBytes": 1587189,
+      "thumbnailBytes": 46546,
+      "frameHashes": [
+        "32236074be44d02f64fa3a539dddc32e8a9c0220c470855cf81c454c36f70fb1",
+        "3cd9cba47d52bb7fed5ccc5c5d2db2783a2f44731d7e0fd93394a22dbe383232",
+        "69bcb73ad6ca551eddc3509f8cc02f14b7cc6dbdadd4a5a3cf0aab57281ff692",
+        "56c591726a87af4e9bd3f43fabb65afbb287fec21abaabd09bd9ef7fbcb55dff"
+      ],
+      "sha256": "9cc0203c1f71b6d803ade6bf239f2d2944c8e9d7af9a4ac968437710b027dda2",
+      "removedMattePixels": 49882
+    },
+    {
+      "id": "cat-corea-del-sur",
+      "country": "Corea del Sur",
+      "sprite": "public/assets/avatars/cat-corea-del-sur-sprites.png",
+      "thumbnail": "public/assets/avatars/cat-corea-del-sur-thumb.png",
+      "frameSize": 512,
+      "spriteBytes": 1456633,
+      "thumbnailBytes": 42874,
+      "frameHashes": [
+        "e66d80b3b66c5c80b19b66870c1bb388630e504ed0f21819385d3050924d4653",
+        "41ed25be08d43739c8e199db1a4ef35096745929398541dc425a01e07f423354",
+        "77269a77d4861fa3e917d935056620c4ed2f90f67cd67bac659747f8e0273f85",
+        "3783c79a41f7150a1c950dab60e1176ac073974715919850c71c5b3e25a60dff"
+      ],
+      "sha256": "9145403458777460394b5041578e453c7ec9ecc46ae923ae17075180d7d60421",
+      "removedMattePixels": 49298
+    }
+  ]
+}

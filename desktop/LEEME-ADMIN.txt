@@ -1,0 +1,14 @@
+StreamVoice · ADMINISTRADOR 1.6.0 · SOLO ADMIN
+
+ESTE PAQUETE ES PRIVADO: contiene la identidad de tu servicio de administración. No envíes esta copia a tus amigos. Para ellos usa los paquetes «StreamVoice» de Windows o Mac.
+
+1. Descomprime el ZIP y abre «StreamVoice Administrador.app» en tu Mac con Apple Silicon.
+2. Al primer inicio crea una contraseña para el administrador y entra con ella.
+3. Abre Administración para agregar usuarios, elegir sus voces y avatares, permitir plataformas y escribir las cuentas de streaming autorizadas. En YouTube debes indicar el ID del canal que comienza por UC.
+4. Para que tus amigos se conecten, activa «Conexión de tus amigos» en Administración. Tu Mac y esta aplicación deben permanecer encendidos durante el uso.
+5. Dentro de la misma red, tus amigos pueden usar https://IP-LOCAL-DEL-MAC:4443. Para acceder desde Internet necesitas una dirección pública y configurar en el router el reenvío del puerto TCP elegido hacia este Mac. Si tu proveedor usa CGNAT, necesitarás una alternativa de conectividad. Entrega a tus amigos la dirección HTTPS y sus credenciales por un canal privado.
+6. Para revocar el acceso, desmarca «Cuenta activa» y guarda. También puedes cambiar los permisos y la contraseña. La app comprueba la sesión aproximadamente cada 20 minutos mientras está abierta; un cambio puede tardar ese tiempo en aplicarse a una sesión activa.
+
+No abras a Internet el puerto del estudio ni el puerto interno de administración local. La conexión exterior usa el certificado incluido en las aplicaciones de esta entrega. Conserva una copia privada de la carpeta .data/desktop-control del proyecto: si pierdes esa identidad, las copias de tus amigos tendrán que reemplazarse por otras con el nuevo certificado.
+
+Esta entrega no está firmada ni notarizada y macOS puede mostrar una advertencia. Las actualizaciones automáticas aún no están configuradas. Los datos anteriores del bot no se importan automáticamente a este nuevo administrador.

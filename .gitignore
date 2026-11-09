@@ -1,0 +1,26 @@
+node_modules/
+.env
+.DS_Store
+*.log
+
+.venv/
+__pycache__/
+dist/
+.build-cache/
+
+# Private account hashes and OBS tokens
+.data/
+
+# Paquetes y entregas: se regeneran o se archivan fuera del repositorio
+*.zip
+STREAMVOICE_APP_FUENTES_*.sha256
+entrega-actualizaciones-windows/
+output/
+
+# Videos pesados; se conservan solo los scripts de la raíz de videos/
+videos/*
+!videos/*.py
+!videos/*.mjs
+
+# Cuentas locales (hashes) generadas con npm run setup:admin
+account-template.json
